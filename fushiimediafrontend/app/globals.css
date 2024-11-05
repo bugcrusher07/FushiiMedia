@@ -13,4 +13,7 @@
   font-family: Nevis-Bold;
   src: url(/Nevis-Bold.ttf.woff);
 }
+html{
+  scroll-behavior: smooth;
+}
 

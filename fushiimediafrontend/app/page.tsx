@@ -6,15 +6,16 @@ import styles from "./page.module.css";
 
 
 const Header = () => {
+
   return (
     <div className={styles.main}>
       <div>
         <img src="logo.jpg" alt="Logo" height="100px" width="100px" />
       </div>
       <div className={styles.main_items}>
-        <a>Home</a>
-        <a>Services</a>
-        <a>Contact</a>
+        <a href="/">Home</a>
+        <a onClick={() => window.location.href = "#services1"}>Services</a>
+        <a onClick={() => window.location.href = "#contact_bottom"}>Contact</a>
       </div>
     </div>
   )
@@ -39,32 +40,15 @@ const SVG = () => {
   )
 }
 
-// const Body = () => {
-//   return (
-//     <div className={styles.big} >
-//       <div className={styles.body}>
-//         <div className={styles.smallBody}>
-//           <div >
-//             <div >THE GO - TO <br />SOCIAL MEDIA <br />MARKETING<br /> SOLUTION
-//             </div>
-//             <div className={styles.smallBig}>
-//               <button>Find Out More &gt;</button>
-//               <div className={styles.svg}>
-//                 <SVG />
-//               </div>
-//             </div>
-//           </div>
-//           <div className={styles.buttonTab}><button className={styles.bigbutton}>BOOK A FREE 30 MIN CONSULTATION</button>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   )
-// }
 
 
 
 const Body = () => {
+  const handleDMClick = () => {
+    // Replace "USERNAME" with the actual Instagram username
+    const instagramDMUrl = 'https://www.instagram.com/direct/inbox/?user_id=fushiimedia';
+    window.open(instagramDMUrl, '_blank'); // Opens in a new tab
+  };
   return (
     <div className={styles.big_body}>
       <div className={styles.body_container}>
@@ -73,20 +57,16 @@ const Body = () => {
             THE GO - TO <br />SOCIAL MEDIA <br />MARKETING<br /> SOLUTION
           </div>
           <div className={styles.first_button_container}>
-            <button className={styles.first_button}>Find Out More &gt;</button>
+            <button className={styles.first_button} onClick={handleDMClick} >Find Out More &gt;</button>
           </div>
           <div className={styles.svg_container}>
             <SVG />
           </div>
         </div>
-        <div className={styles.second_container_wrapper}>
-          <div className={styles.second_container}>
-            <button className={styles.second_button}>BOOK A FREE 30 MIN CONSULTATION</button>
-          </div>
-        </div>
+
       </div>
       <div className={styles.second_container2}>
-        <button className={styles.second_button2}>BOOK&nbsp; A&nbsp; FREE &nbsp;30&nbsp; MIN&nbsp; CONSULTATION</button>
+        <button className={styles.second_button2} onClick={handleDMClick}>BOOK&nbsp; A&nbsp; FREE &nbsp;30&nbsp; MIN&nbsp; CONSULTATION</button>
       </div>
     </div>
   )
@@ -267,9 +247,9 @@ const Services = () => {
   const [clipPath, setClipPath] = useState<string>('');
   const resizeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  const calculateClipPath = (width: number): string => {
+  const calculateClipPath = (width: number, height: number): string => {
 
-    return `path('M 0 0   L 0 1000    C ${(100 / 1920) * width} 950, ${(200 / 1920) * width} 900, ${(250 / 1920) * width} 1000   C ${(350 / 1920) * width} 1100, ${(450 / 1920) * width} 950, ${(500 / 1920) * width} 1000   C ${(600 / 1920) * width} 1100, ${(750 / 1920) * width} 800, ${(850 / 1920) * width} 1000  C ${(900 / 1920) * width} 1100, ${(1075 / 1920) * width} 800, ${(1200 / 1920) * width} 950  C ${(1450 / 1920) * width} 1200, ${(1600 / 1920) * width} 900, ${(1700 / 1920) * width} 1050   C ${(1850 / 1920) * width} 1150, ${(1900 / 1920) * width} 850, ${width} 1000  L ${width} 0 Z')`;
+    return `path('M 0 0   L 0 ${height - 150}    C ${(100 / 1920) * width} ${height - 200}, ${(200 / 1920) * width} ${height - 250}, ${(250 / 1920) * width} ${height - 150}  C ${(350 / 1920) * width} ${height - 50}, ${(450 / 1920) * width} ${height - 200}, ${(500 / 1920) * width} ${height - 150}   C ${(600 / 1920) * width} ${height - 50}, ${(750 / 1920) * width} ${height - 350}, ${(850 / 1920) * width} ${height - 150}  C ${(900 / 1920) * width} ${height - 50}, ${(1075 / 1920) * width} ${height - 350}, ${(1200 / 1920) * width} ${height - 200}  C ${(1450 / 1920) * width} ${height + 50}, ${(1600 / 1920) * width} ${height - 250}, ${(1700 / 1920) * width} ${height - 100}   C ${(1850 / 1920) * width} ${height}, ${(1900 / 1920) * width} ${height - 300}, ${width} ${height - 150}  L ${width} 0 Z')`;
 
   };
 
@@ -277,7 +257,8 @@ const Services = () => {
     const updateClipPath = (): void => {
       if (divRef.current) {
         const width = divRef.current.offsetWidth;
-        let newClipPath = (calculateClipPath(width));
+        const height = divRef.current.offsetHeight;
+        let newClipPath = (calculateClipPath(width, height));
         setClipPath(newClipPath)
 
 
@@ -294,13 +275,10 @@ const Services = () => {
       }, 150);
     };
 
-    // Initial calculation
     updateClipPath();
 
-    // Add resize listener
     window.addEventListener('resize', handleResize);
 
-    // Cleanup
     return () => {
       window.removeEventListener('resize', handleResize);
       if (resizeTimeoutRef.current) {
@@ -311,11 +289,11 @@ const Services = () => {
 
 
   return (
-    <div ref={divRef} style={{
+    <div ref={divRef} id="services1" className={styles.idkm} style={{
       display: 'flex',
       flexDirection: 'column',
       background: 'linear-gradient(to bottom,#06012d , #000000)',
-      height: '1150px',
+
       position: 'relative',
       clipPath: clipPath || 'none'
     }}>
@@ -363,13 +341,13 @@ const Services = () => {
 
 
 const Bottom = () => {
-  return (<div>
+  return (<div id="contact_bottom">
     <div className={styles.bottom_wrapper}>
       <div className={styles.content1}>
         <div className={styles.contact}>Contact us</div>
         <div style={{ marginBottom: "24px" }}>CONTACT</div>
         <div>+91 88528 62347</div>
-        <div style={{ marginBottom: "35px" }}>--(email)--</div>
+        <div style={{ marginBottom: "35px", marginTop: "10px", fontSize: "17px", backgroundColor: "black", color: "white", width: "175px", padding: "5px 2px" }}>fushiimedia@gmail.com</div>
         <div style={{ marginBottom: "35px", display: "inline-block", width: "200px", height: "2px", backgroundColor: "black" }}></div>
         <div>Address</div>
         <div>--Address--</div>
@@ -381,7 +359,7 @@ const Bottom = () => {
             <input className={styles.input} placeholder="Phone"></input>
           </div>
           <input placeholder="E-mail" style={{ height: "30px" }}></input>
-          {/* <input className={styles.bigMessage} type="text" placeholder="Any queries or a message " style={{ height: "200px" }}></input> */}
+
           <textarea maxLength={200} className={styles.bigMessage} placeholder="Any queries or a message"    ></textarea>
           <input type="submit" className={styles.submit_button} style={{ width: "100px", height: "30px" }} value="submit"></input>
         </form>
