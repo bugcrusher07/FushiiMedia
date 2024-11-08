@@ -5,21 +5,106 @@ import styles from "./page.module.css";
 
 
 
+
+
+
 const Header = () => {
+  const headerRef = useRef<HTMLDivElement>(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkWidth = () => {
+      if (headerRef.current) {
+        setIsMobile(headerRef.current.offsetWidth < 670);
+      }
+    };
+
+    // Initial check
+    checkWidth();
+
+    // Add resize listener
+    window.addEventListener('resize', checkWidth);
+
+    // Cleanup
+    return () => window.removeEventListener('resize', checkWidth);
+  }, []);
+
+  const handleMenuClick = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+      setIsOpen(false);
+    }
+  };
 
   return (
-    <div className={styles.main}>
-      <div>
-        <img src="logo.jpg" alt="Logo" height="100px" width="100px" />
-      </div>
-      <div className={styles.main_items}>
-        <a href="/">Home</a>
-        <a onClick={() => window.location.href = "#services1"}>Services</a>
-        <a onClick={() => window.location.href = "#contact_bottom"}>Contact</a>
+    <div className={styles.header} ref={headerRef}>
+      <div className={styles.headerContent}>
+        <div className={styles.logo}>
+          <img src="logo.jpg" alt="Logo" />
+        </div>
+
+        {isMobile ? (
+          <div className={styles.mobileMenu}>
+            <button
+              onClick={handleMenuClick}
+              className={styles.hamburger}
+              aria-label="Toggle menu"
+            >
+              <span className={`${styles.hamburgerLine} ${isOpen ? styles.line1 : ''}`} />
+              <span className={`${styles.hamburgerLine} ${isOpen ? styles.line2 : ''}`} />
+              <span className={`${styles.hamburgerLine} ${isOpen ? styles.line3 : ''}`} />
+            </button>
+
+            {isOpen && (
+              <div className={styles.dropdown}>
+                <a href="/" className={styles.dropdownItem}>
+                  Home
+                </a>
+                <button
+                  onClick={() => scrollToSection('services1')}
+                  className={styles.dropdownItem}
+                >
+                  Services
+                </button>
+                <button
+                  onClick={() => scrollToSection('contact_bottom')}
+                  className={styles.dropdownItem}
+                >
+                  Contact
+                </button>
+              </div>
+            )}
+          </div>
+        ) : (
+          <nav className={styles.desktopMenu}>
+            <a href="/" className={styles.menuItem}>
+              Home
+            </a>
+            <button
+              onClick={() => scrollToSection('services1')}
+              className={styles.menuItem}
+            >
+              Services
+            </button>
+            <button
+              onClick={() => scrollToSection('contact_bottom')}
+              className={styles.menuItem}
+            >
+              Contact
+            </button>
+          </nav>
+        )}
       </div>
     </div>
-  )
-}
+  );
+};
+
 
 const SVG = () => {
   return (
