@@ -355,10 +355,10 @@ const Bottom = () => {
       <div className={styles.content2}>
         <form className={styles.bigForm} style={{ display: "flex", flexDirection: "column" }}>
           <div style={{ display: "flex" }}>
-            <input className={styles.input} placeholder="Name"></input>
-            <input className={styles.input} placeholder="Phone"></input>
+            <input maxLength={30} className={styles.input} placeholder="Name"></input>
+            <input maxLength={14} className={styles.input} placeholder="Phone"></input>
           </div>
-          <input placeholder="E-mail" style={{ height: "30px" }}></input>
+          <input maxLength={50} placeholder="E-mail" style={{ height: "30px" }}></input>
 
           <textarea maxLength={200} className={styles.bigMessage} placeholder="Any queries or a message"    ></textarea>
           <input type="submit" className={styles.submit_button} style={{ width: "100px", height: "30px" }} value="submit"></input>
