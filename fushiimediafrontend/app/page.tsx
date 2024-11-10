@@ -694,10 +694,10 @@ const FormComponent: React.FC = () => {
       <div style={{ display: "flex" }}>
         <input maxLength={30} name="name" value={formData.name} onChange={handleChange} className={styles.input} placeholder="Name"
           required ></input>
-        <input maxLength={14} name="phone" value={formData.phone} onChange={handleChange}
+        <input maxLength={14} type="number" name="phone" required value={formData.phone} onChange={handleChange}
           placeholder="Phone" className={styles.input} ></input>
       </div>
-      <input maxLength={50} placeholder="E-mail" required name="email"
+      <input maxLength={50} placeholder="E-mail" required type="email" name="email"
         value={formData.email}
         onChange={handleChange} style={{ height: "30px" }}></input>
 
