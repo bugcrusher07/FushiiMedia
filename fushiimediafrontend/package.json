@@ -6,9 +6,9 @@
     "prisma": "npx prisma init",
     "generate": "npx prisma generate",
     "migrate": "npx prisma migrate deploy",
-    "build": "npx prisma generate && next build && start",
-    "start": "node server.js",
-    "start:next": "next start",
+    "build": "npx prisma generate && next build",
+    "start": "next start",
+    "dev": "next dev",
     "lint": "next lint"
   },
   "dependencies": {
