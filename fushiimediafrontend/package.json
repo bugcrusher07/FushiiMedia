@@ -3,9 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "prisma": "prisma",
-    "generate": "prisma generate",
-    "migrate": "prisma migrate deploy",
+    "generate": "npx prisma generate",
+    "migrate": "npx prisma migrate deploy",
     "dev": "next dev --turbopack",
     "dev2": "node server.js",
     "build": "next build",
