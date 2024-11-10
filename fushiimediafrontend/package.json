@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "prisma": "prisma",
+    "migrate": "prisma migrate deploy",
+    "generate": "prisma generate",
     "dev": "next dev --turbopack",
     "dev2": "node server.js",
     "build": "next build",
