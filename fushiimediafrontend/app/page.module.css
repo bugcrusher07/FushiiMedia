@@ -363,10 +363,19 @@
   font-family: Nevis-Bold;
 }
 
+.svg_instagram:hover{
+  height:45px;
+  width:45px;
+  cursor:pointer;
+
+}
+
+
 .content1{
   position: relative;
   margin-bottom:100px;
 }
+
 
 .contact{
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;

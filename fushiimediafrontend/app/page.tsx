@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, ChangeEvent, FormEvent } from "react";
 import styles from "./page.module.css";
 
 
@@ -107,8 +107,13 @@ const Header = () => {
 
 
 const SVG = () => {
+  const insta = () => {
+    window.open("https://www.instagram.com/fushiimedia/?hl=en", "_blank")
+  }
   return (
     <svg
+      onClick={insta}
+      className={styles.svg_instagram}
       width="40"
       height="40"
       viewBox="0 0 960 960"
@@ -423,31 +428,306 @@ const Services = () => {
     </div>
   )
 }
+// interface FormData {
+//   name: string;
+//   email: string;
+//   message: string;
+// }
+
+// const FormComponent: React.FC = () => {
+//   const [formData, setFormData] = useState<FormData>({
+//     name: '',
+//     email: '',
+//     message: ''
+//   });
+//   const [qrCode, setQrCode] = useState<string | null>(null);
+//   const [isWhatsAppConnected, setIsWhatsAppConnected] = useState(false);
+//   const [isSubmitting, setIsSubmitting] = useState(false);
+
+//   // Check WhatsApp connection status
+//   const checkWhatsAppStatus = async () => {
+//     try {
+//       const response = await fetch('/api/whatsapp-status');
+//       const data = await response.json();
+
+//       if (data.status === 'connected') {
+//         setIsWhatsAppConnected(true);
+//         setQrCode(null);
+//       } else if (data.status === 'awaiting_qr_scan') {
+//         setQrCode(data.qrCode);
+//         setIsWhatsAppConnected(false);
+//       } else {
+//         setIsWhatsAppConnected(false);
+//       }
+//     } catch (error) {
+//       console.error('Error checking WhatsApp status:', error);
+//     }
+//   };
+
+//   // Check status periodically
+//   useEffect(() => {
+//     const interval = setInterval(checkWhatsAppStatus, 5000);
+//     return () => clearInterval(interval);
+//   }, []);
+
+//   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+//     const { name, value } = e.target;
+//     setFormData(prev => ({ ...prev, [name]: value }));
+//   };
+
+//   const handleSubmit = async (e: FormEvent) => {
+//     e.preventDefault();
+//     setIsSubmitting(true);
+
+//     try {
+//       const response = await fetch('/api/submit-form', {
+//         method: 'POST',
+//         headers: { 'Content-Type': 'application/json' },
+//         body: JSON.stringify(formData),
+//       });
+
+//       const data = await response.json();
+
+//       if (response.ok) {
+//         alert('Message sent successfully!');
+//         setFormData({ name: '', email: '', message: '' });
+//       } else if (data.needsQR) {
+//         alert('Please scan the QR code to connect WhatsApp first');
+//         checkWhatsAppStatus();
+//       } else {
+//         alert('Failed to send message. Please try again.');
+//       }
+//     } catch (error) {
+//       console.error('Error:', error);
+//       alert('An error occurred. Please try again.');
+//     } finally {
+//       setIsSubmitting(false);
+//     }
+//   };
+
+//   return (
+//     <div className={styles.container}>
+//       {!isWhatsAppConnected && qrCode && (
+//         <div className={styles.qrCodeContainer}>
+//           <h3>Scan QR Code to Connect WhatsApp</h3>
+//           <img src={qrCode} alt="WhatsApp QR Code" />
+//           <p>Please scan this QR code with WhatsApp to enable message sending</p>
+//         </div>
+//       )}
+
+//       <form onSubmit={handleSubmit} className={styles.form}>
+//         <input
+//           type="text"
+//           name="name"
+//           value={formData.name}
+//           onChange={handleChange}
+//           placeholder="Name"
+//           required
+//           className={styles.input}
+//         />
+
+//         <input
+//           type="email"
+//           name="email"
+//           value={formData.email}
+//           onChange={handleChange}
+//           placeholder="Email"
+//           required
+//           className={styles.input}
+//         />
+
+//         <textarea
+//           name="message"
+//           value={formData.message}
+//           onChange={handleChange}
+//           placeholder="Message"
+//           required
+//           className={styles.textarea}
+//         />
+
+//         <button
+//           type="submit"
+//           className={styles.button}
+//           disabled={isSubmitting || (!isWhatsAppConnected && !qrCode)}
+//         >
+//           {isSubmitting ? 'Sending...' : 'Send Message'}
+//         </button>
+
+//         {!isWhatsAppConnected && !qrCode && (
+//           <p className={styles.status}>Initializing WhatsApp connection...</p>
+//         )}
+//       </form>
+//     </div>
+//   );
+// };
+
+// interface FormData {
+//   name: string;
+//   phone: string;
+//   email: string;
+//   message: string;
+// }
+
+// const FormComponent: React.FC = () => {
+//   const [formData, setFormData] = useState<FormData>({ name: '', phone: '', email: '', message: '' });
+
+//   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+//     const { name, value } = e.target;
+//     setFormData((prevData) => ({ ...prevData, [name]: value }));
+//   };
+
+//   const handleSubmit = async (e: FormEvent) => {
+//     e.preventDefault();
+//     try {
+//       const response = await fetch('/api/submit-form', {
+//         method: 'POST',
+//         headers: { 'Content-Type': 'application/json' },
+//         body: JSON.stringify(formData),
+//       });
+
+//       if (response.ok) {
+//         alert('Message sent successfully');
+//         setFormData({ name: '', phone: '', email: '', message: '' });
+//       } else {
+//         alert('Failed to send message');
+//       }
+//     } catch (error) {
+//       console.error('Error:', error);
+//     }
+//   };
+
+//   return (
+//     <form onSubmit={handleSubmit} className={styles.bigForm} style={{ display: 'flex', flexDirection: 'column' }}>
+//       <div style={{ display: 'flex' }}>
+//         <input
+//           maxLength={30}
+//           name="name"
+//           value={formData.name}
+//           onChange={handleChange}
+//           className={styles.input}
+//           placeholder="Name"
+//         />
+//         <input
+//           maxLength={14}
+//           name="phone"
+//           value={formData.phone}
+//           onChange={handleChange}
+//           className={styles.input}
+//           placeholder="Phone"
+//         />
+//       </div>
+//       <input
+//         maxLength={50}
+//         name="email"
+//         value={formData.email}
+//         onChange={handleChange}
+//         placeholder="E-mail"
+//         style={{ height: '30px' }}
+//       />
+//       <textarea
+//         maxLength={200}
+//         name="message"
+//         value={formData.message}
+//         onChange={handleChange}
+//         className={styles.bigMessage}
+//         placeholder="Any queries or a message"
+//       />
+//       <input type="submit" className={styles.submit_button} style={{ width: '100px', height: '30px' }} value="submit" />
+//     </form>
+//   );
+// };
+
+interface FormData {
+  name: string;
+  email: string;
+  message: string;
+  phone?: string;
+}
+
+const FormComponent: React.FC = () => {
+  const [formData, setFormData] = useState<FormData>({
+    name: '',
+    email: '',
+    message: '',
+    phone: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch('/api/submit-form', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        alert('Form submitted successfully!');
+        setFormData({
+          name: '',
+          email: '',
+          message: '',
+          phone: ''
+        });
+      } else {
+        throw new Error('Failed to submit form');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('Failed to submit form. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  return (
+
+    <form className={styles.bigForm} onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column" }}>
+      <div style={{ display: "flex" }}>
+        <input maxLength={30} name="name" value={formData.name} onChange={handleChange} className={styles.input} placeholder="Name"
+          required ></input>
+        <input maxLength={14} name="phone" value={formData.phone} onChange={handleChange}
+          placeholder="Phone" className={styles.input} ></input>
+      </div>
+      <input maxLength={50} placeholder="E-mail" required name="email"
+        value={formData.email}
+        onChange={handleChange} style={{ height: "30px" }}></input>
+
+      <textarea maxLength={200} className={styles.bigMessage} name="message"
+        value={formData.message}
+        onChange={handleChange} placeholder="Any queries or a message" required   ></textarea>
+      <input type="submit" className={styles.submit_button} style={{ width: "100px", height: "30px" }} value={isSubmitting ? "Submitting..." : "Submit"}
+        disabled={isSubmitting}></input>
+    </form>
+
+  );
+};
 
 
 const Bottom = () => {
+
   return (<div id="contact_bottom">
     <div className={styles.bottom_wrapper}>
       <div className={styles.content1}>
         <div className={styles.contact}>Contact us</div>
         <div style={{ marginBottom: "24px" }}>CONTACT</div>
         <div>+91 88528 62347</div>
-        <div style={{ marginBottom: "35px", marginTop: "10px", fontSize: "17px", backgroundColor: "black", color: "white", width: "175px", padding: "5px 2px" }}>fushiimedia@gmail.com</div>
+        <div style={{ marginBottom: "35px", marginTop: "10px", fontSize: "17px", backgroundColor: "white", color: "black", width: "175px", padding: "5px 2px" }}>fushiimedia@gmail.com</div>
         <div style={{ marginBottom: "35px", display: "inline-block", width: "200px", height: "2px", backgroundColor: "black" }}></div>
         <div>Address</div>
         <div>--Address--</div>
       </div>
       <div className={styles.content2}>
-        <form className={styles.bigForm} style={{ display: "flex", flexDirection: "column" }}>
-          <div style={{ display: "flex" }}>
-            <input maxLength={30} className={styles.input} placeholder="Name"></input>
-            <input maxLength={14} className={styles.input} placeholder="Phone"></input>
-          </div>
-          <input maxLength={50} placeholder="E-mail" style={{ height: "30px" }}></input>
 
-          <textarea maxLength={200} className={styles.bigMessage} placeholder="Any queries or a message"    ></textarea>
-          <input type="submit" className={styles.submit_button} style={{ width: "100px", height: "30px" }} value="submit"></input>
-        </form>
+        <FormComponent />
       </div>
     </div>
     <div className={styles.bottom_bar}><div>@2024 FushiiMedia</div></div>
