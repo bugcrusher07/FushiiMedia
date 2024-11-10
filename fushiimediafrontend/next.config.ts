@@ -8,16 +8,11 @@ import type { NextConfig } from "next";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
-  swcMinify: true,
-  // Enable experimental serverless features if needed
   experimental: {
     serverActions: true,
   },
-  // Add custom webpack config if needed
-  webpack: (config: { resolve: { fallback: any; }; }, { isServer }: any) => {
+  webpack: (config, { isServer }) => {
     if (!isServer) {
-      // Don't bundle prisma with client
       config.resolve.fallback = {
         ...config.resolve.fallback,
         fs: false,
@@ -29,5 +24,7 @@ const nextConfig = {
   },
 }
 
+
 module.exports = nextConfig;
+
 export default nextConfig;
