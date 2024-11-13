@@ -428,138 +428,7 @@ const Services = () => {
     </div>
   )
 }
-// interface FormData {
-//   name: string;
-//   email: string;
-//   message: string;
-// }
 
-// const FormComponent: React.FC = () => {
-//   const [formData, setFormData] = useState<FormData>({
-//     name: '',
-//     email: '',
-//     message: ''
-//   });
-//   const [qrCode, setQrCode] = useState<string | null>(null);
-//   const [isWhatsAppConnected, setIsWhatsAppConnected] = useState(false);
-//   const [isSubmitting, setIsSubmitting] = useState(false);
-
-//   // Check WhatsApp connection status
-//   const checkWhatsAppStatus = async () => {
-//     try {
-//       const response = await fetch('/api/whatsapp-status');
-//       const data = await response.json();
-
-//       if (data.status === 'connected') {
-//         setIsWhatsAppConnected(true);
-//         setQrCode(null);
-//       } else if (data.status === 'awaiting_qr_scan') {
-//         setQrCode(data.qrCode);
-//         setIsWhatsAppConnected(false);
-//       } else {
-//         setIsWhatsAppConnected(false);
-//       }
-//     } catch (error) {
-//       console.error('Error checking WhatsApp status:', error);
-//     }
-//   };
-
-//   // Check status periodically
-//   useEffect(() => {
-//     const interval = setInterval(checkWhatsAppStatus, 5000);
-//     return () => clearInterval(interval);
-//   }, []);
-
-//   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-//     const { name, value } = e.target;
-//     setFormData(prev => ({ ...prev, [name]: value }));
-//   };
-
-//   const handleSubmit = async (e: FormEvent) => {
-//     e.preventDefault();
-//     setIsSubmitting(true);
-
-//     try {
-//       const response = await fetch('/api/submit-form', {
-//         method: 'POST',
-//         headers: { 'Content-Type': 'application/json' },
-//         body: JSON.stringify(formData),
-//       });
-
-//       const data = await response.json();
-
-//       if (response.ok) {
-//         alert('Message sent successfully!');
-//         setFormData({ name: '', email: '', message: '' });
-//       } else if (data.needsQR) {
-//         alert('Please scan the QR code to connect WhatsApp first');
-//         checkWhatsAppStatus();
-//       } else {
-//         alert('Failed to send message. Please try again.');
-//       }
-//     } catch (error) {
-//       console.error('Error:', error);
-//       alert('An error occurred. Please try again.');
-//     } finally {
-//       setIsSubmitting(false);
-//     }
-//   };
-
-//   return (
-//     <div className={styles.container}>
-//       {!isWhatsAppConnected && qrCode && (
-//         <div className={styles.qrCodeContainer}>
-//           <h3>Scan QR Code to Connect WhatsApp</h3>
-//           <img src={qrCode} alt="WhatsApp QR Code" />
-//           <p>Please scan this QR code with WhatsApp to enable message sending</p>
-//         </div>
-//       )}
-
-//       <form onSubmit={handleSubmit} className={styles.form}>
-//         <input
-//           type="text"
-//           name="name"
-//           value={formData.name}
-//           onChange={handleChange}
-//           placeholder="Name"
-//           required
-//           className={styles.input}
-//         />
-
-//         <input
-//           type="email"
-//           name="email"
-//           value={formData.email}
-//           onChange={handleChange}
-//           placeholder="Email"
-//           required
-//           className={styles.input}
-//         />
-
-//         <textarea
-//           name="message"
-//           value={formData.message}
-//           onChange={handleChange}
-//           placeholder="Message"
-//           required
-//           className={styles.textarea}
-//         />
-
-//         <button
-//           type="submit"
-//           className={styles.button}
-//           disabled={isSubmitting || (!isWhatsAppConnected && !qrCode)}
-//         >
-//           {isSubmitting ? 'Sending...' : 'Send Message'}
-//         </button>
-
-//         {!isWhatsAppConnected && !qrCode && (
-//           <p className={styles.status}>Initializing WhatsApp connection...</p>
-//         )}
-//       </form>
-//     </div>
-//   );
-// };
 
 // interface FormData {
 //   name: string;
@@ -636,7 +505,50 @@ const Services = () => {
 //     </form>
 //   );
 // };
+// export function MainPage2() {
+//   const [data, setData] = useState('')
 
+//   const handleSubmit = async () => {
+//     try {
+//       const response = await fetch('/api/data/', {
+//         method: 'POST',
+//         headers: {
+//           'Content-Type': 'application/json',
+//         },
+//         body: JSON.stringify({ data: data }),
+//       })
+
+//       if (!response.ok) {
+//         throw new Error('Failed to submit data')
+//       }
+
+//       const result = await response.json()
+//       alert('Data saved successfully!')
+//       setData('')
+//     } catch (error) {
+//       console.error('Error:', error)
+//       alert('Failed to save data')
+//     }
+//   }
+
+//   return (
+//     <div className="p-8">
+//       <input
+//         type="text"
+//         value={data}
+//         onChange={(e) => setData(e.target.value)}
+//         className="border p-2 mr-2"
+//         placeholder="Enter data"
+//       />
+//       <button
+//         onClick={handleSubmit}
+//         className="bg-blue-500 text-white px-4 py-2 rounded"
+//       >
+//         Save Data
+//       </button>
+//     </div>
+//   )
+// }
 interface FormData {
   name: string;
   email: string;
@@ -663,7 +575,7 @@ const FormComponent: React.FC = () => {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch('/api/submit-form', {
+      const response = await fetch('/api/data', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
@@ -728,6 +640,7 @@ const Bottom = () => {
       <div className={styles.content2}>
 
         <FormComponent />
+        {/* <MainPage2 /> */}
       </div>
     </div>
     <div className={styles.bottom_bar}><div>@2024 FushiiMedia</div></div>

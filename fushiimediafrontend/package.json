@@ -18,6 +18,8 @@
     "express": "^4.21.1",
     "fushiimediafrontend": "file:",
     "next": "15.0.1",
+    "pg": "^8.13.1",
+    "postgres": "^3.4.5",
     "qrcode": "^1.5.4",
     "qrcode-terminal": "^0.12.0",
     "react": "19.0.0-rc-69d4b800-20241021",
@@ -26,6 +28,7 @@
   },
   "devDependencies": {
     "@types/node": "^20",
+    "@types/pg": "^8.11.10",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "eslint": "^8",
