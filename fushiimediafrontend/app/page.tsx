@@ -643,7 +643,7 @@ const Bottom = () => {
         {/* <MainPage2 /> */}
       </div>
     </div>
-    <div className={styles.bottom_bar}><div>@2024 FushiiMedia</div></div>
+
   </div>
   )
 }
@@ -653,6 +653,7 @@ export default function Home() {
     <Body />
     <Services />
     <Bottom />
+    <div className={styles.bottom_bar}><div>@2024 FushiiMedia</div></div>
   </div>
   );
 }
