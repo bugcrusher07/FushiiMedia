@@ -340,7 +340,7 @@ const Services = () => {
   const calculateClipPath = (width: number, height: number): string => {
 
     return `path('M 0 0   L 0 ${height - 150}    C ${(100 / 1920) * width} ${height - 200}, ${(200 / 1920) * width} ${height - 250}, ${(250 / 1920) * width} ${height - 150}  C ${(350 / 1920) * width} ${height - 50}, ${(450 / 1920) * width} ${height - 200}, ${(500 / 1920) * width} ${height - 150}   C ${(600 / 1920) * width} ${height - 50}, ${(750 / 1920) * width} ${height - 350}, ${(850 / 1920) * width} ${height - 150}  C ${(900 / 1920) * width} ${height - 50}, ${(1075 / 1920) * width} ${height - 350}, ${(1200 / 1920) * width} ${height - 200}  C ${(1450 / 1920) * width} ${height + 50}, ${(1600 / 1920) * width} ${height - 250}, ${(1700 / 1920) * width} ${height - 100}   C ${(1850 / 1920) * width} ${height}, ${(1900 / 1920) * width} ${height - 300}, ${width} ${height - 150}  L ${width} 0 Z')`;
-
+    //   return `path('M 0 0 L 0 930 C ${(100 / 1920) * width} 880, ${(200 / 1920) * width} 830, ${(250 / 1920) * width} 930 C ${(350 / 1920) * width} 1030, ${(450 / 1920) * width} 880, ${(500 / 1920) * width} 930 C ${(600 / 1920) * width} 1030, ${(750 / 1920) * width} 730, ${(850 / 1920) * width} 930 C ${(900 / 1920) * width} 1030, ${(1075 / 1920) * width} 730, ${(1200 / 1920) * width} 880 C ${(1450 / 1920) * width} 1130, ${(1600 / 1920) * width} 830, ${(1700 / 1920) * width} 980 C ${(1850 / 1920) * width} 1080, ${(1900 / 1920) * width} 780, ${width} 930 L ${width} 0 Z')`;
   };
 
   useEffect(() => {
@@ -385,7 +385,7 @@ const Services = () => {
       background: 'linear-gradient(to bottom,#06012d , #000000)',
 
       position: 'relative',
-      clipPath: clipPath || 'none'
+      clipPath: clipPath || `none`,
     }}>
       <div>
         <div className={styles.heading}>Featured</div>
@@ -430,125 +430,7 @@ const Services = () => {
 }
 
 
-// interface FormData {
-//   name: string;
-//   phone: string;
-//   email: string;
-//   message: string;
-// }
 
-// const FormComponent: React.FC = () => {
-//   const [formData, setFormData] = useState<FormData>({ name: '', phone: '', email: '', message: '' });
-
-//   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-//     const { name, value } = e.target;
-//     setFormData((prevData) => ({ ...prevData, [name]: value }));
-//   };
-
-//   const handleSubmit = async (e: FormEvent) => {
-//     e.preventDefault();
-//     try {
-//       const response = await fetch('/api/submit-form', {
-//         method: 'POST',
-//         headers: { 'Content-Type': 'application/json' },
-//         body: JSON.stringify(formData),
-//       });
-
-//       if (response.ok) {
-//         alert('Message sent successfully');
-//         setFormData({ name: '', phone: '', email: '', message: '' });
-//       } else {
-//         alert('Failed to send message');
-//       }
-//     } catch (error) {
-//       console.error('Error:', error);
-//     }
-//   };
-
-//   return (
-//     <form onSubmit={handleSubmit} className={styles.bigForm} style={{ display: 'flex', flexDirection: 'column' }}>
-//       <div style={{ display: 'flex' }}>
-//         <input
-//           maxLength={30}
-//           name="name"
-//           value={formData.name}
-//           onChange={handleChange}
-//           className={styles.input}
-//           placeholder="Name"
-//         />
-//         <input
-//           maxLength={14}
-//           name="phone"
-//           value={formData.phone}
-//           onChange={handleChange}
-//           className={styles.input}
-//           placeholder="Phone"
-//         />
-//       </div>
-//       <input
-//         maxLength={50}
-//         name="email"
-//         value={formData.email}
-//         onChange={handleChange}
-//         placeholder="E-mail"
-//         style={{ height: '30px' }}
-//       />
-//       <textarea
-//         maxLength={200}
-//         name="message"
-//         value={formData.message}
-//         onChange={handleChange}
-//         className={styles.bigMessage}
-//         placeholder="Any queries or a message"
-//       />
-//       <input type="submit" className={styles.submit_button} style={{ width: '100px', height: '30px' }} value="submit" />
-//     </form>
-//   );
-// };
-// export function MainPage2() {
-//   const [data, setData] = useState('')
-
-//   const handleSubmit = async () => {
-//     try {
-//       const response = await fetch('/api/data/', {
-//         method: 'POST',
-//         headers: {
-//           'Content-Type': 'application/json',
-//         },
-//         body: JSON.stringify({ data: data }),
-//       })
-
-//       if (!response.ok) {
-//         throw new Error('Failed to submit data')
-//       }
-
-//       const result = await response.json()
-//       alert('Data saved successfully!')
-//       setData('')
-//     } catch (error) {
-//       console.error('Error:', error)
-//       alert('Failed to save data')
-//     }
-//   }
-
-//   return (
-//     <div className="p-8">
-//       <input
-//         type="text"
-//         value={data}
-//         onChange={(e) => setData(e.target.value)}
-//         className="border p-2 mr-2"
-//         placeholder="Enter data"
-//       />
-//       <button
-//         onClick={handleSubmit}
-//         className="bg-blue-500 text-white px-4 py-2 rounded"
-//       >
-//         Save Data
-//       </button>
-//     </div>
-//   )
-// }
 interface FormData {
   name: string;
   email: string;
@@ -634,8 +516,9 @@ const Bottom = () => {
         <div>+91 88528 62347</div>
         <div style={{ marginBottom: "35px", marginTop: "10px", fontSize: "17px", backgroundColor: "white", color: "black", width: "175px", padding: "5px 2px" }}>fushiimedia@gmail.com</div>
         <div style={{ marginBottom: "35px", display: "inline-block", width: "200px", height: "2px", backgroundColor: "black" }}></div>
-        <div>Address</div>
-        <div>--Address--</div>
+        <div style={{ marginBottom: "10px" }} className={styles.man}>OPERATING HOURS </div>
+        <div style={{ marginBottom: "50px" }}>Available Mon-Fri, 9 AM to 6 PM</div>
+        <div className={styles.bigMan}>Get in touch to kickstart your project</div>
       </div>
       <div className={styles.content2}>
 
