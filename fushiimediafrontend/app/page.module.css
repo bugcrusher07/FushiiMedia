@@ -429,8 +429,19 @@
   cursor:pointer;
 }
 /* min-width:770px */
-
+.content1 >div{
+  margin-left:6vw;
+}
 @media  (min-width:770px) and (max-width:970px){
+.bottom_wrapper{
+  position:relative;
+  flex-direction: column;
+}
+ .bottom_bar{
+  position:relative;
+  margin-top:30px;
+ }
+
 .second_button2{
   margin-right:20px;
 }
