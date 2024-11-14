@@ -421,7 +421,9 @@
 .submit_button{
   align-self: center;
 }
-
+.bottom_wrapper{
+  height:500px;
+}
 .submit_button:hover{
   background-color: black;
   color:white;
@@ -480,6 +482,11 @@ height:1400px;
 }
 
 @media ( max-width:769px){
+
+  .bottom_bar{
+  position:relative;
+  margin-top:250px;
+}
 .options{
     justify-content: center;
 }
